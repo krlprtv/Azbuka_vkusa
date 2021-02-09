@@ -17,10 +17,17 @@ headers = {
 
 for i in len(urls.shape[0]):
     response = requests.get(urls['loc'][i], headers = headers)
+    # Можно попробовать занметь html на lxml
     soup = BeautifulSoup(response.text, 'html.parser')
     tovar_title.append(soup.find('h1').text)
     tovar_price.append(soup.find('div', class_="b-goods-price__sum b-price b-price_large js-price").text)
     tovar_category.append(soup.find('span', class_="b-product-menu__title").text)
+
+# Попробовать такой подход
+# tovar_ids_ = soup.find_all('div, class_"b-goods-price__sum b-price b-price_large js-price")
+# Или
+# tovar_ids = soup.find('div', {'class':'b-goods-price__sum b-price b-price_large js-price'}).find('b') Добавить find('b') в 23 строку
+
 
 
 df = pd.DataFrame(
