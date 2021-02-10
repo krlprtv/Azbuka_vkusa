@@ -15,6 +15,7 @@ headers = {
     'user-agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                   "Chrome/55.0.2883.87 Safari/537.36"}
 
+stop = timeit.default_timer()
 for i in range(15000):
     try:
         response = requests.get(urls['loc'][i], headers = headers)
@@ -22,8 +23,11 @@ for i in range(15000):
         tovar_title.append(soup.find('h1').text)
         tovar_price.append(soup.find('div', class_="b-goods-price__sum b-price b-price_large js-price").find('b').text)
         tovar_category.append(soup.find('span', class_="b-product-menu__title").text)
+        # Отловить неудачное соеднение
     except (AttributeError):
         tovar_price.append('No value')
+    except (urllib3.exceptions.MaxRetryError):
+        continue
 
 
 df = pd.DataFrame(
@@ -36,6 +40,15 @@ df = pd.DataFrame(
 print(tovar_price)
 df.to_excel(r'C:\Users\krlpr\Downloads\data15000.xlsx', index=False)
 
+if (r/len(df)*100) < 5:
+    expected_time = "Calculating..."
+else:
+    time_perc - timeit.default_timer()
+    expected_time = np.round((time_perc - start) / (r/len(df)))/60, 2)
+    
+print("Current progress:", np.round(r/len(df)*100, 2), "%")
+print("Current run time:", np.round(stop - start)/60, 2), "minutes")
+print("Expected Run time:", expected_time, 'minutes')
 
 -------------------------------------------------------------------
 F:\Python\python.exe "F:/Python Projects/Parser/Pars.py"
