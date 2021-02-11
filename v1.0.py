@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup, ResultSet
 from multiprocessing import Pool
 
 urls = pd.read_csv(r'C:\Users\krlpr\Downloads\urls.csv')
+urls_list = urls['loc'].to_list()
 
 tovar_id = []
 tovar_title = []
@@ -15,6 +16,8 @@ links = []
 headers = {
     'user-agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                   "Chrome/55.0.2883.87 Safari/537.36"}
+def parse(urls):
+    return urls
 
 for i in tqdm.tgrange(10):
     try:
