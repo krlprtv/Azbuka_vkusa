@@ -19,7 +19,7 @@ headers = {
 def parse(urls):
     for i in tqdm.tgrange(100):
         try:
-            response = requests.get(urls_list, headers=headers)
+            response = requests.get(urls_list[i], headers=headers)
             if response.status_code == 200:
                 soup = BeautifulSoup(response.text, 'html.parser')
                 tovar_title.append(soup.find('h1',class_="b-goods__title js-goods-title").text)
