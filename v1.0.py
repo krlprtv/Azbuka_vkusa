@@ -16,7 +16,7 @@ headers = {
     'user-agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                   "Chrome/55.0.2883.87 Safari/537.36"}
 
-for i in tqdm.tgrange(10000):
+for i in tqdm.tgrange(5000):
     try:
         response = requests.get(urls['loc'][i], headers=headers)
         if response.status_code == 200:
@@ -44,4 +44,4 @@ df = pd.DataFrame(
     columns=['Title', 'Price', 'Category','Link']
 )
 
-df.to_excel(r'F:\Python Projects\Parser\data10000_3.xlsx', index=False)
+df.to_excel(r'F:\Python Projects\Parser\data5000_3.xlsx', index=False)
